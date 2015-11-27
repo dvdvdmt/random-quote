@@ -1,0 +1,26 @@
+body {
+  margin-top: 20vh; }
+
+#options-row {
+  margin-bottom: 20px; }
+
+#quote {
+  opacity: 0; }
+
+.invisible {
+  opacity: 0; }
+
+.visible {
+  opacity: 1 !important; }
+
+.btn {
+  border-radius: 24px; }
+  .btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none; }
+
+.btn-default:focus, .btn-default.focus {
+  color: #333333;
+  background-color: #e7e7e7;
+  border-color: #cccccc; }
+
+/*# sourceMappingURL=custom.css.map */
