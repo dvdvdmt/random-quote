@@ -1,13 +1,26 @@
 body {
   margin-top: 20vh;
 }
+
 #options-row {
   margin-bottom: 20px;
 }
+
+#settings-btn {
+  font-size: 20px;
+  padding: 5px 10px;
+}
+
+#settings {
+  display: none;
+}
+
 #quote {
   opacity: 0;
 }
-
+.form-control{
+  height: auto;
+}
 .invisible {
   opacity: 0;
 }
@@ -26,6 +39,7 @@ body {
     outline: 0 none;
   }
 }
+
 .btn-default:focus, .btn-default.focus {
   color: #333333;
   background-color: #e7e7e7;

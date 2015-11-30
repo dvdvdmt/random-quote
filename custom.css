@@ -4,8 +4,18 @@ body {
 #options-row {
   margin-bottom: 20px; }
 
+#settings-btn {
+  font-size: 20px;
+  padding: 5px 10px; }
+
+#settings {
+  display: none; }
+
 #quote {
   opacity: 0; }
+
+.form-control {
+  height: auto; }
 
 .invisible {
   opacity: 0; }

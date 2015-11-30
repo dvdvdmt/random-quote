@@ -1,7 +1,7 @@
-// TODO: share quote in twitter
-// TODO: auto update after 10 min
 // TODO: switching between dark and white themes
+// TODO: auto update after N min/sec
 // TODO: save all options in localStorage
+// TODO: share quote in twitter
 
 
 // Animate.css usage https://github.com/daneden/animate.css/#usage
@@ -65,6 +65,12 @@ $(function () {
         var sorryMsgEl = $('#sorry-msg');
         var switchEng = $('#switch-eng');
 
+        var settings = $('#settings');
+        $('#settings-btn').click(function () {
+            settings.toggle(300);
+        });
+
+
         function updateQuote(quote) {
             elAuthor.text(quote.quoteAuthor);
             elText.text(quote.quoteText);
@@ -96,7 +102,6 @@ $(function () {
             });
         }
 
-        //getQuoteBtn.one('click', fetchNew);
         getQuote();
         switchEng.change(function () {
             if (this.checked) api.setLanguage('en');
@@ -107,5 +112,14 @@ $(function () {
 
     var api = new ForismaticApi('');
     var app = new App(api);
+
+    $('[data-toggle="tooltip"]').tooltip({delay: 100}).focus(function () {
+        var tip = $(this);
+        setTimeout(function () {
+            tip.trigger('focusout');
+        }, 1000);
+    });
+
+
 })
 ;

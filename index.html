@@ -17,13 +17,46 @@
                     <button id="get-quote" class="btn btn-default">Get Quote</button>
                 </div>
                 <div class="col-xs-4 text-right">
-                    <div class="checkbox">
-                        <label>
-                            <input id="switch-eng" value="en" type="checkbox"> English
-                        </label>
-                    </div>
+                    <button id="settings-btn" type="button" class="btn btn-default" data-toggle="tooltip"
+                            title="Settings"><i class="fa fa-cog"></i>
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="settings" class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form class="form-inline text-center">
+                <div class="form-group col-sm-4">
+                    <label for="switch-eng">English</label>
+                    <input id="switch-eng" value="en" type="checkbox">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="update-after">Update after</label>
+                    <select class="form-control" id="update-after">
+                        <option>30s</option>
+                        <option>1m</option>
+                        <option>2m</option>
+                        <option>3m</option>
+                        <option>5m</option>
+                        <option>10m</option>
+                        <option>15m</option>
+                        <option>20m</option>
+                        <option>30m</option>
+                        <option>45m</option>
+                        <option>1h</option>
+                        <option>2h</option>
+                        <option>6h</option>
+                        <option>8h</option>
+                        <option>12h</option>
+                        <option>1d</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-4">
+                    <div class="btn btn-default">Dark</div>
+                    <div class="btn btn-default">White</div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -40,6 +73,7 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
