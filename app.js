@@ -1,7 +1,5 @@
-// TODO: switching between dark and white themes
-// TODO: auto update after N min/sec
-// TODO: save all options in localStorage
 // TODO: share quote in twitter
+// TODO: switching between dark and white themes
 
 
 // Animate.css usage https://github.com/daneden/animate.css/#usage
@@ -22,7 +20,7 @@ $(function () {
         var format = 'jsonp';
 
         this.setLanguage = function (lang) {
-            language = lang;
+            language = lang || '';
         };
 
         // returns jquery Promise with methods done, fail, always
@@ -63,7 +61,9 @@ $(function () {
         var elSource = $('#quote-source');
         var getQuoteBtn = $('#get-quote');
         var sorryMsgEl = $('#sorry-msg');
-        var switchEng = $('#switch-eng');
+        var setEng = $('#set-eng');
+        var setAutoUpdate = $('#set-auto-update');
+
 
         var settings = $('#settings');
         $('#settings-btn').click(function () {
@@ -102,11 +102,40 @@ $(function () {
             });
         }
 
+        setEng.change(function () {
+            var lang = this.checked ? 'en' : '';
+            api.setLanguage(lang);
+            localStorage.setItem('lang', lang);
+        });
+
+        var intervalId;
+        setAutoUpdate.change(function () {
+            var minutes = this.options[this.selectedIndex].value;
+            if (minutes) {
+                var interval = minutes * 60000;
+                clearInterval(intervalId);
+                intervalId = setInterval(getQuote.bind(this), interval);
+                localStorage.setItem('autoUpdate', JSON.stringify({optionId: this.selectedIndex, interval: interval}));
+            } else {
+                clearInterval(intervalId);
+                localStorage.removeItem('autoUpdate');
+            }
+        });
+
+        var lang = localStorage.getItem('lang');
+        if (lang) {
+            setEng.prop('checked', true);
+            api.setLanguage(lang);
+        }
+
+        var autoUpdate = localStorage.getItem('autoUpdate');
+        if (autoUpdate) {
+            autoUpdate = JSON.parse(autoUpdate);
+            intervalId = setInterval(getQuote.bind(this), autoUpdate.interval);
+            setAutoUpdate.find('option:eq(' + autoUpdate.optionId + ')').prop('selected', true);
+        }
+
         getQuote();
-        switchEng.change(function () {
-            if (this.checked) api.setLanguage('en');
-            else api.setLanguage('');
-        })
     }
 
 
