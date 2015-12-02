@@ -4,7 +4,7 @@ body {
 #options-row {
   margin-bottom: 20px; }
 
-#settings-btn {
+#settings-btn, #get-quote {
   font-size: 20px;
   padding: 5px 10px; }
 
@@ -14,14 +14,27 @@ body {
 #quote {
   opacity: 0; }
 
+#quote-row {
+  min-height: 200px; }
+
 .form-control {
   height: auto; }
+
+#error-msg {
+  display: none; }
 
 .invisible {
   opacity: 0; }
 
 .visible {
   opacity: 1 !important; }
+
+.share-button {
+  color: black;
+  font-size: 24px;
+  text-decoration: none; }
+  .share-button:hover, .share-button:visited {
+    color: black; }
 
 .btn {
   border-radius: 24px; }
@@ -32,5 +45,9 @@ body {
   color: #333333;
   background-color: #e7e7e7;
   border-color: #cccccc; }
+
+.vertical-align {
+  display: flex;
+  align-items: center; }
 
 /*# sourceMappingURL=custom.css.map */

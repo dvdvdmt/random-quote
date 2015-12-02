@@ -11,12 +11,14 @@
 <body>
 <div class="container">
     <div id="options-row" class="row">
-        <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="row">
-                <div class="col-xs-offset-4 col-xs-4 text-center">
-                    <button id="get-quote" class="btn btn-default">Get Quote</button>
+                <div class="col-xs-6 text-left">
+                    <button id="get-quote" class="btn btn-default" data-toggle="tooltip" title="Get new quote">
+                        <i class="fa fa-repeat"></i>
+                    </button>
                 </div>
-                <div class="col-xs-4 text-right">
+                <div class="col-xs-6 text-right">
                     <button id="settings-btn" type="button" class="btn btn-default" data-toggle="tooltip"
                             title="Settings"><i class="fa fa-cog"></i>
                     </button>
@@ -53,15 +55,11 @@
                         <option value="1440">1d</option>
                     </select>
                 </div>
-                <!--<div class="form-group col-sm-4">-->
-                    <!--<div class="btn btn-default">Dark</div>-->
-                    <!--<div class="btn btn-default">White</div>-->
-                <!--</div>-->
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+    <div id="quote-row" class="row vertical-align">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <blockquote id="quote" class="blockquote-reverse">
                 <p id="quote-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
                     ante.</p>
@@ -69,7 +67,12 @@
                     <small id="quote-author"></small>
                 </a>
             </blockquote>
-            <h2 id="sorry-msg" class="text-center invisible">Sorry, can't get quote <i class="fa fa-frown-o"></i></h2>
+            <h2 id="error-msg" class="text-center">Sorry, can't get quote <i class="fa fa-frown-o"></i></h2>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-6 col-md-offset-3">
+            <a href data-share='twitter' class="share-button"><i class="fa fa-twitter"></i></a>
         </div>
     </div>
 </div>

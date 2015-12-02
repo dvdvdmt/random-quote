@@ -1,4 +1,5 @@
-// TODO: share quote in twitter
+// TODO: add sharing in VK, Facebook, G+
+// TODO: improve animation, make it shorter
 // TODO: switching between dark and white themes
 
 
@@ -12,6 +13,12 @@ $.prototype.animateCss = function (animation, callBack) {
     });
     return this;
 };
+
+function encodeData(data) {
+    return Object.keys(data).map(function(key) {
+        return [key, data[key]].map(encodeURIComponent).join("=");
+    }).join("&");
+}
 
 $(function () {
     function ForismaticApi(quoteLanguage) {
@@ -31,8 +38,8 @@ $(function () {
                 url: baseUrl,
                 data: {method: "getQuote", format: format, lang: language},
                 dataType: "jsonp",
-                jsonp: "jsonp",
-                jsonpCallback: "myJsonMethod"
+                jsonp: "jsonp"
+                //jsonpCallback: "myJsonMethod"
             }).done(onDone).fail(onFail);
         };
 
@@ -41,7 +48,7 @@ $(function () {
         };
 
         var onDone = function (data) {
-            console.log(data)
+            console.log(data);
         };
 
         this.setOnDone = function (f) {
@@ -60,7 +67,7 @@ $(function () {
         var elText = $('#quote-text');
         var elSource = $('#quote-source');
         var getQuoteBtn = $('#get-quote');
-        var sorryMsgEl = $('#sorry-msg');
+        var errorMsg = $('#error-msg');
         var setEng = $('#set-eng');
         var setAutoUpdate = $('#set-auto-update');
 
@@ -70,14 +77,17 @@ $(function () {
             settings.toggle(300);
         });
 
+        var lastQuote;
 
         function updateQuote(quote) {
+            lastQuote = quote;
             elAuthor.text(quote.quoteAuthor);
             elText.text(quote.quoteText);
             elSource.attr('href', quote.quoteLink);
         }
 
         function fetchNew() {
+            if (getQuoteBtn.hasClass('disabled')) return;
             getQuoteBtn.addClass('disabled');
             quoteEl.animateCss('fadeOutLeft', function () {
                 quoteEl.removeClass('visible');
@@ -87,18 +97,14 @@ $(function () {
 
         function getQuote() {
             api.getRandomQuote().done(function (quote) {
+                errorMsg.hide();
                 updateQuote(quote);
                 quoteEl.animateCss('fadeInRight');
                 quoteEl.addClass('visible');
                 getQuoteBtn.removeClass('disabled');
             }).fail(function () {
-                sorryMsgEl.removeClass('invisible');
-                sorryMsgEl.animateCss('fadeInUp');
-                getQuoteBtn.one('click', function () {
-                    sorryMsgEl.addClass('invisible');
-                });
-            }).always(function () {
-                getQuoteBtn.one('click', fetchNew);
+                errorMsg.show();
+                errorMsg.animateCss('fadeInUp');
             });
         }
 
@@ -122,6 +128,33 @@ $(function () {
             }
         });
 
+        $('.share-button').click(function () {
+            var share = $(this).data('share');
+            var quote = lastQuote.quoteText;
+            var author = lastQuote.quoteAuthor;
+            var text = quote + '\n- ' + author;
+            switch (share) {
+                case 'twitter':
+                    var params = encodeData({text:text});
+                    openShareWindow('https://twitter.com/intent/tweet?'+params);
+                    break;
+            }
+            return false;
+        });
+
+        function openShareWindow(link) {
+            //$.preventDefault();
+            var e = "scrollbars=yes,resizable=yes,toolbar=no,location=yes"
+                , w = 550
+                , h = 420
+                , sH = window.screen.height
+                , sW = window.screen.width
+                , x = Math.round(sW / 2 - w / 2)
+                , y = Math.round(sH / 2 - h / 2);
+
+            window.open(link, null, e + ",width=" + w + ",height=" + h + ",left=" + x + ",top=" + y);
+        }
+
         var lang = localStorage.getItem('lang');
         if (lang) {
             setEng.prop('checked', true);
@@ -134,7 +167,7 @@ $(function () {
             intervalId = setInterval(getQuote.bind(this), autoUpdate.interval);
             setAutoUpdate.find('option:eq(' + autoUpdate.optionId + ')').prop('selected', true);
         }
-
+        getQuoteBtn.click(fetchNew);
         getQuote();
     }
 
@@ -148,7 +181,6 @@ $(function () {
             tip.trigger('focusout');
         }, 1000);
     });
-
 
 })
 ;

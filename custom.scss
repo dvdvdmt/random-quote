@@ -6,7 +6,7 @@ body {
   margin-bottom: 20px;
 }
 
-#settings-btn {
+#settings-btn, #get-quote {
   font-size: 20px;
   padding: 5px 10px;
 }
@@ -18,9 +18,19 @@ body {
 #quote {
   opacity: 0;
 }
-.form-control{
+
+#quote-row {
+  min-height: 200px;
+}
+
+.form-control {
   height: auto;
 }
+
+#error-msg {
+  display: none;
+}
+
 .invisible {
   opacity: 0;
 }
@@ -29,8 +39,13 @@ body {
   opacity: 1 !important;
 }
 
-.hidden {
-
+.share-button {
+  color: black;
+  font-size: 24px;
+  text-decoration: none;
+  &:hover, &:visited {
+    color: black;
+  }
 }
 
 .btn {
@@ -44,4 +59,9 @@ body {
   color: #333333;
   background-color: #e7e7e7;
   border-color: #cccccc;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
 }
