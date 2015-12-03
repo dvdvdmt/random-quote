@@ -1,5 +1,5 @@
+// TODO: try to move settings in modal
 // TODO: add sharing in VK, Facebook, G+
-// TODO: improve animation, make it shorter
 // TODO: switching between dark and white themes
 
 
@@ -7,15 +7,18 @@
 $.prototype.animateCss = function (animation, callBack) {
     var endEvents = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
     var animationClass = 'animated ' + animation;
+    if (animationClass.match(/In/)) $(this).show();
+
     this.addClass(animationClass).one(endEvents, function () {
         $(this).removeClass(animationClass);
+        if (animationClass.match(/Out/)) $(this).hide();
         if (callBack) callBack();
     });
     return this;
 };
 
 function encodeData(data) {
-    return Object.keys(data).map(function(key) {
+    return Object.keys(data).map(function (key) {
         return [key, data[key]].map(encodeURIComponent).join("=");
     }).join("&");
 }
@@ -39,7 +42,6 @@ $(function () {
                 data: {method: "getQuote", format: format, lang: language},
                 dataType: "jsonp",
                 jsonp: "jsonp"
-                //jsonpCallback: "myJsonMethod"
             }).done(onDone).fail(onFail);
         };
 
@@ -89,10 +91,8 @@ $(function () {
         function fetchNew() {
             if (getQuoteBtn.hasClass('disabled')) return;
             getQuoteBtn.addClass('disabled');
-            quoteEl.animateCss('fadeOutLeft', function () {
-                quoteEl.removeClass('visible');
-                getQuote();
-            });
+            quoteEl.animateCss('fadeOutLeft', getQuote)
+            ;
         }
 
         function getQuote() {
@@ -135,8 +135,8 @@ $(function () {
             var text = quote + '\n- ' + author;
             switch (share) {
                 case 'twitter':
-                    var params = encodeData({text:text});
-                    openShareWindow('https://twitter.com/intent/tweet?'+params);
+                    var params = encodeData({text: text});
+                    openShareWindow('https://twitter.com/intent/tweet?' + params);
                     break;
             }
             return false;
@@ -175,7 +175,7 @@ $(function () {
     var api = new ForismaticApi('');
     var app = new App(api);
 
-    $('[data-toggle="tooltip"]').tooltip({delay: 100}).focus(function () {
+    $('[data-toggle="tooltip"]').tooltip({delay: 200}).focus(function () {
         var tip = $(this);
         setTimeout(function () {
             tip.trigger('focusout');

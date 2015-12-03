@@ -12,7 +12,7 @@ body {
   display: none; }
 
 #quote {
-  opacity: 0; }
+  display: none; }
 
 #quote-row {
   min-height: 200px; }
@@ -22,12 +22,6 @@ body {
 
 #error-msg {
   display: none; }
-
-.invisible {
-  opacity: 0; }
-
-.visible {
-  opacity: 1 !important; }
 
 .share-button {
   color: black;
@@ -49,5 +43,35 @@ body {
 .vertical-align {
   display: flex;
   align-items: center; }
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(-20%, 0, 0);
+    transform: translate3d(-20%, 0, 0); } }
+.fadeOutLeft {
+  -webkit-animation-name: fadeOutLeft;
+  animation-name: fadeOutLeft; }
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(20%, 0, 0);
+    transform: translate3d(20%, 0, 0); }
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none; } }
+.fadeInRight {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight; }
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both; }
 
 /*# sourceMappingURL=custom.css.map */
